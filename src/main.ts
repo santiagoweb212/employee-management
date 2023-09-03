@@ -7,6 +7,7 @@ async function bootstrap() {
   const mockupService = app.get(MockupDataUploadService);
   await mockupService.createProyect();
   await mockupService.createDepartaments();
+  await mockupService.createPositions();
   await app.listen(3000);
 }
 bootstrap();
