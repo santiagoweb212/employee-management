@@ -1,26 +1,46 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProyectDto } from './dto/create-proyect.dto';
 import { UpdateProyectDto } from './dto/update-proyect.dto';
+import { Proyect } from './model/proyect.model';
 
 @Injectable()
 export class ProyectService {
-  create(createProyectDto: CreateProyectDto) {
-    return 'This action adds a new proyect';
+  constructor(
+    @Inject('PROJECT_REPOSITORY')
+    private readonly projectRepository: typeof Proyect,
+  ) {}
+  async create(createProyectDto: CreateProyectDto) {
+    const newProject = await this.projectRepository.create({
+      ...createProyectDto,
+    });
+    return newProject;
   }
 
-  findAll() {
-    return `This action returns all proyect`;
+  async findAll() {
+    return await this.projectRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} proyect`;
+  async findOne(id: number) {
+    return await this.projectRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updateProyectDto: UpdateProyectDto) {
-    return `This action updates a #${id} proyect`;
+  async update(id: number, updateProyectDto: UpdateProyectDto) {
+    return await this.projectRepository.update(
+      { ...updateProyectDto },
+      { where: { id } },
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} proyect`;
+  async remove(id: number) {
+    const project = await this.projectRepository.findByPk(id);
+
+    if (!project) {
+      throw new NotFoundException('The project does not exist');
+    }
+
+    // Utiliza el método destroy para eliminar lógicamente el proyecto
+    await project.destroy();
+
+    return project;
   }
 }

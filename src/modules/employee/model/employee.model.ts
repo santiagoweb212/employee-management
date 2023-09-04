@@ -9,7 +9,7 @@ import { Position } from '../../position/model/position.model';
 import { Departament } from '../../departament/model/departament.model';
 import { Proyect } from '../../proyect/model/proyect.model';
 
-@Table
+@Table({ paranoid: true })
 export class Employee extends Model {
   @Column({
     primaryKey: true,

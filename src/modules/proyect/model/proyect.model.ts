@@ -1,5 +1,7 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
-@Table
+@Table({
+  paranoid: true,
+})
 export class Proyect extends Model {
   @Column({
     primaryKey: true,

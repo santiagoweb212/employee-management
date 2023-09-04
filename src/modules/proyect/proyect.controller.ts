@@ -13,30 +13,33 @@ import { UpdateProyectDto } from './dto/update-proyect.dto';
 
 @Controller('proyect')
 export class ProyectController {
-  constructor(private readonly proyectService: ProyectService) {}
+  constructor(private readonly projectService: ProyectService) {}
 
   @Post()
-  create(@Body() createProyectDto: CreateProyectDto) {
-    return this.proyectService.create(createProyectDto);
+  async create(@Body() createProyectDto: CreateProyectDto) {
+    return await this.projectService.create(createProyectDto);
   }
 
   @Get()
-  findAll() {
-    return this.proyectService.findAll();
+  async findAll() {
+    return await this.projectService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.proyectService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.projectService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProyectDto: UpdateProyectDto) {
-    return this.proyectService.update(+id, updateProyectDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateProyectDto: UpdateProyectDto,
+  ) {
+    return await this.projectService.update(+id, updateProyectDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.proyectService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.projectService.remove(+id);
   }
 }

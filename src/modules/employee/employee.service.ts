@@ -9,9 +9,8 @@ export class EmployeeService {
     @Inject(EMPLOYEE_REPOSITORY)
     private readonly employeeRepository: typeof Employee,
   ) {}
-  create(createEmployeeDto: CreateEmployeeDto) {
-    console.log('--->>>', createEmployeeDto);
-    const newEmployee = this.employeeRepository.create({
+  async create(createEmployeeDto: CreateEmployeeDto) {
+    const newEmployee = await this.employeeRepository.create({
       ...createEmployeeDto,
     });
     return newEmployee;

@@ -1,4 +1,5 @@
 export const mockupProjects = [
+  { title: 'SIN ASIGNAR', description: 'SIN ASIGNAR' },
   {
     title: 'Edificio Residencial',
     description: 'Construcción de un edificio de apartamentos de lujo.',
@@ -21,6 +22,7 @@ export const mockupProjects = [
 ];
 
 export const mockupDepartments = [
+  { title: 'SIN ASIGNAR', description: 'SIN ASIGNAR' },
   {
     title: 'Departamento de Ingeniería Civil',
     description:
@@ -44,6 +46,7 @@ export const mockupDepartments = [
 ];
 
 export const mockupPositions = [
+  { title: 'SIN ASIGNAR', description: 'SIN ASIGNAR' },
   {
     title: 'Arquitecto',
     description: 'Encargado de diseñar y planificar proyectos de construcción.',
@@ -63,4 +66,24 @@ export const mockupPositions = [
     description:
       'Realiza trabajos de carpintería en la construcción y acabados.',
   },
+];
+
+export const mockupEmployees = [
+  {
+    name: 'Empleado 1',
+    hireDate: new Date(),
+    salary: 50000,
+    position: 'Arquitecto',
+    project: 'Edificio Residencial',
+    department: 'Departamento de Ingeniería Civil',
+  },
+  {
+    name: 'Empleado 2',
+    hireDate: new Date(),
+    salary: 60000,
+    position: 'Ingeniero Civil',
+    project: 'Rehabilitación de Carretera',
+    department: 'Departamento de Construcción',
+  },
+  // Agrega más datos de empleados según tus necesidades
 ];

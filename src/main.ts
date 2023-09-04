@@ -5,9 +5,13 @@ import { MockupDataUploadService } from './modules/mockup-data-upload/mockup-dat
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const mockupService = app.get(MockupDataUploadService);
-  await mockupService.createProyect();
-  await mockupService.createDepartaments();
-  await mockupService.createPositions();
+  await Promise.all([
+    mockupService.createProyect(),
+    mockupService.createDepartaments(),
+    mockupService.createPositions(),
+    mockupService.createEmploye(),
+  ]);
   await app.listen(3000);
 }
+
 bootstrap();

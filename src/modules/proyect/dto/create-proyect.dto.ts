@@ -1,1 +1,4 @@
-export class CreateProyectDto {}
+export class CreateProyectDto {
+  readonly title: string;
+  readonly description: string;
+}

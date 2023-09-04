@@ -1,26 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePositionDto } from './dto/create-position.dto';
 import { UpdatePositionDto } from './dto/update-position.dto';
+import { POSITION_REPOSITORY } from 'src/core/constants';
+import { Position } from './model/position.model';
 
 @Injectable()
 export class PositionService {
-  create(createPositionDto: CreatePositionDto) {
-    return 'This action adds a new position';
+  constructor(
+    @Inject(POSITION_REPOSITORY)
+    private readonly positionRepository: typeof Position,
+  ) {}
+  async create(createPositionDto: CreatePositionDto) {
+    return await this.positionRepository.create({ ...createPositionDto });
   }
 
-  findAll() {
-    return `This action returns all position`;
+  async findAll() {
+    return await this.positionRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} position`;
+  async findOne(id: number) {
+    return await this.positionRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updatePositionDto: UpdatePositionDto) {
-    return `This action updates a #${id} position`;
+  async update(id: number, updatePositionDto: UpdatePositionDto) {
+    return await this.positionRepository.update(
+      { ...updatePositionDto },
+      { where: { id } },
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} position`;
+  async remove(id: number) {
+    const position = await this.positionRepository.findByPk(id);
+    if (!position) {
+      throw new NotFoundException('not found');
+    }
+    await position.destroy();
+    return position;
   }
 }

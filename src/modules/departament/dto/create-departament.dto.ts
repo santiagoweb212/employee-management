@@ -1,1 +1,4 @@
-export class CreateDepartamentDto {}
+export class CreateDepartamentDto {
+  readonly tiltle: string;
+  readonly description: string;
+}

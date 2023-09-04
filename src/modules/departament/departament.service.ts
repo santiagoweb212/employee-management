@@ -1,26 +1,36 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateDepartamentDto } from './dto/create-departament.dto';
 import { UpdateDepartamentDto } from './dto/update-departament.dto';
+import { Departament } from './model/departament.model';
 
 @Injectable()
 export class DepartamentService {
-  create(createDepartamentDto: CreateDepartamentDto) {
-    return 'This action adds a new departament';
+  constructor(
+    @Inject('DEPARTAMENT_REPOSITORY')
+    private readonly departamentRepository: typeof Departament,
+  ) {}
+  async create(createDepartamentDto: CreateDepartamentDto) {
+    return await this.departamentRepository.create({ ...createDepartamentDto });
   }
 
-  findAll() {
-    return `This action returns all departament`;
+  async findAll() {
+    return await this.departamentRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} departament`;
+  async findOne(id: number) {
+    return await this.departamentRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updateDepartamentDto: UpdateDepartamentDto) {
-    return `This action updates a #${id} departament`;
+  async update(id: number, updateDepartamentDto: UpdateDepartamentDto) {
+    return await this.departamentRepository.update(
+      { ...updateDepartamentDto },
+      { where: { id } },
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} departament`;
+  async remove(id: number) {
+    const departament = await this.departamentRepository.findByPk(id);
+    await departament.destroy();
+    return departament;
   }
 }

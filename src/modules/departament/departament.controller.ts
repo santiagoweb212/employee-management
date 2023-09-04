@@ -16,30 +16,30 @@ export class DepartamentController {
   constructor(private readonly departamentService: DepartamentService) {}
 
   @Post()
-  create(@Body() createDepartamentDto: CreateDepartamentDto) {
+  async create(@Body() createDepartamentDto: CreateDepartamentDto) {
     return this.departamentService.create(createDepartamentDto);
   }
 
   @Get()
-  findAll() {
-    return this.departamentService.findAll();
+  async findAll() {
+    return await this.departamentService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.departamentService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.departamentService.findOne(+id);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateDepartamentDto: UpdateDepartamentDto,
   ) {
-    return this.departamentService.update(+id, updateDepartamentDto);
+    return await this.departamentService.update(+id, updateDepartamentDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.departamentService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.departamentService.remove(+id);
   }
 }

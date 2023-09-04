@@ -1,5 +1,5 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
-@Table
+@Table({ paranoid: true })
 export class Position extends Model {
   @Column({
     primaryKey: true,

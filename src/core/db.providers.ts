@@ -20,7 +20,7 @@ export const dbProviders = [
       }
       const sequelize = new Sequelize(config);
       sequelize.addModels([Employee, Proyect, Departament, Position]);
-      await sequelize.sync();
+      await sequelize.sync({ force: true });
       return sequelize;
     },
   },
