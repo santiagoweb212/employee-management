@@ -4,6 +4,7 @@ import { MockupDataUploadService } from './modules/mockup-data-upload/mockup-dat
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   const mockupService = app.get(MockupDataUploadService);
   await Promise.all([
     mockupService.createProyect(),
